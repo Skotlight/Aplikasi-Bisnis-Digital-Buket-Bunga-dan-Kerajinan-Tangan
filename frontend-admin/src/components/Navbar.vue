@@ -3,33 +3,64 @@
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"
+          ><i class="fas fa-bars"></i
+        ></a>
       </li>
     </ul>
 
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
 
-      <li class="nav-item">
-        <a class="nav-link" href="#" role="button" @click.prevent="submitLogout">
-          <i class="fas fa-th-large"></i> Logout
-        </a>
-      </li>
+    <ul class="navbar-nav ml-auto">
+      <CDropdown
+        inNav
+        class="c-header-nav-items"
+        placement="bottom-end"
+        add-menu-classes="pt-0"
+      >
+        <template #toggler>
+          <CHeaderNavLink>
+            <div class="c-avatar">
+              <img src="images/Userr.jpg" class="c-avatar-img " />
+            </div>
+          </CHeaderNavLink>
+        </template>
+        <CDropdownHeader tag="div" class="text-center" color="light">
+          <strong>Account</strong>
+          <strong>Settings</strong>
+        </CDropdownHeader>
+
+        <CDropdownItem>
+          <CIcon name="cil-bell" /> Notification
+          <CBadge color="info" class="mfs-auto">{{ itemsCount }}</CBadge>
+        </CDropdownItem>
+        <CDropdownItem><CIcon name="cil-user" />Profile </CDropdownItem>
+        <CDropdownItem><CIcon name="cil-settings" />Settings </CDropdownItem>
+        <CDropdownDivider />
+        <CDropdownItem
+          ><CIcon name="cil-lock-locked" /><a @click.prevent="submitLogout">
+            Logout</a
+          ></CDropdownItem
+        >
+      </CDropdown>
     </ul>
   </nav>
 </template>
 
 <script>
 export default {
-    methods:{
-        submitLogout(){
-            localStorage.removeItem('access_token')
-            this.$router.push('/login')
-        }
-    }
-}
+  methods: {
+    submitLogout() {
+      localStorage.removeItem("access_token");
+      this.$router.push("/login");
+    },
+  },
+};
 </script>
 
-<style>
-
+<style scoped>
+.c-icon {
+  margin-right: 0.3rem;
+  width: 20px;
+}
 </style>

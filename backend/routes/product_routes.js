@@ -10,5 +10,6 @@ router.post("/", product.create);
 router.put("/:id", product.update);
 router.patch("/:id", product.patch);
 router.delete("/:id", product.delete);
+router.post("/search", product.search);
 
 module.exports = router;

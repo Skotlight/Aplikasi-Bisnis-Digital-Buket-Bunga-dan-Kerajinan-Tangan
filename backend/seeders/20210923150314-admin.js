@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const { encode } = require("../helpers/bcryptjs");
 
@@ -12,12 +12,18 @@ module.exports = {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
-    */
-     await queryInterface.bulkInsert('Users', [{
-         email: 'admin@mail.com',
-         password: encode('admin'),
-         role:'admin'
-       }], {});
+     */
+    await queryInterface.bulkInsert(
+      "Users",
+      [
+        {
+          email: "admin@mail.com",
+          password: encode("admin"),
+          role: "admin",
+        },
+      ],
+      {}
+    );
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -27,5 +33,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-  }
+    await queryInterface.bulkDelete("Users", null, {});
+  },
 };

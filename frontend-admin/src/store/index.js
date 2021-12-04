@@ -1,23 +1,21 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import axios from 'axios'
+import Vue from "vue";
+import Vuex from "vuex";
+import axios from "axios";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
+  state: {},
+  mutations: {},
   actions: {
-    login(context, payload){
+    login(context, payload) {
       return axios({
-        url:'http://localhost:3000/login',
-        method:'post',
-        data:payload
-      })
-    }
+        url: "http://localhost:3000/login",
+        method: "post",
+        data: payload,
+      });
+    },
   },
-  modules: {
-  }
-})
+
+  modules: {},
+});

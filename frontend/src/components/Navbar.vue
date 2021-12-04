@@ -19,9 +19,12 @@
                      <div class="right-nav">
                         <div class="login-sr">
                            <div class="login-signup">
-                              <ul>
+                              <ul v-if="$store.state.isAuthenticated === false">
                                  <li><a href="#" @click.prevent=" $router.push('/login').catch(err => {})">Login</a></li>
-                                 <li><a class="custom-b" href="#">Sign up</a></li>
+                                 <li><a href="#" @click.prevent=" $router.push('/register').catch(err => {})">Sign up</a></li>
+                              </ul>
+                              <ul v-if="$store.state.isAuthenticated === true">
+                                 <li><a href="#" @click.prevent="submitLogout">Logout</a></li>
                               </ul>
                            </div>
                         </div>
@@ -40,8 +43,12 @@
 
 <script>
 export default {
-    
-
+methods: {
+    submitLogout () {
+      localStorage.removeItem('access_token')
+      this.$store.dispatch('authenticate', false)
+    }
+  }
 }
 </script>
 
