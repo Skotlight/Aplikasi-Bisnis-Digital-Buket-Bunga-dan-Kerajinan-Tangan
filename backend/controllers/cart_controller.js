@@ -55,8 +55,7 @@ module.exports = class cartController {
   static update(req, res, next) {
     let id = req.params.cartId;
     let { quantity } = req.body;
-
-    Cart.findByPK(id)
+    Cart.findByPk(id)
       .then((data) => {
         return Product.findByPk(data.productId);
       })

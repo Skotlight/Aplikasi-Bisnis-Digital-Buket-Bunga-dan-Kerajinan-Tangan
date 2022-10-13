@@ -256,7 +256,7 @@ export default {
                   const payload = {
                     id: product.Product.id,
                     stock: {
-                      stock: product.quantity,
+                      stock: product.Product.stock - product.quantity,
                     },
                   };
                   return this.$store.dispatch("patchProduct", payload);

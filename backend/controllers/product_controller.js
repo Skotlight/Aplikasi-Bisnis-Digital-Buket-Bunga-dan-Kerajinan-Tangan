@@ -28,21 +28,10 @@ module.exports = class productController {
     let newData = { name, image_url, price, stock, category };
     Product.create(newData)
       .then((data) => {
-        let category = Category.findOne({ where: { id: category } });
-        return { data, category };
-      })
-      .then((data) => {
-        let result = {
-          id: data.data.id,
-          name: data.data.name,
-          image_url: data.data.image_url,
-          price: data.data.price,
-          stock: data.data.stock,
-          category: data.category.category,
-        };
-        res.status(201).json(result);
+        res.status(201).json(data);
       })
       .catch((err) => {
+        console.log(err);
         if (Array.isArray(err.errors)) {
           let errors = [];
           err.errors.forEach((el) => {
@@ -95,16 +84,17 @@ module.exports = class productController {
     let id = +req.params.id;
     let data = {};
     let product = await Product.findByPk(id);
+    console.log(req.body);
     req.body.name
       ? (data["name"] = req.body.name)
       : (data["name"] = product.name);
-    req.body.price
+    req.body.price || req.body.price === 0
       ? (data["price"] = req.body.price)
       : (data["price"] = product.price);
     req.body.image_url
       ? (data["image_url"] = req.body.image_url)
       : (data["image_url"] = product.image_url);
-    req.body.stock
+    req.body.stock || req.body.stock === 0
       ? (data["stock"] = req.body.stock)
       : (data["stock"] = product.stock);
     req.body.category

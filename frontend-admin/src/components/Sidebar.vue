@@ -21,14 +21,20 @@
         >
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+
           <li class="nav-item">
-            <a href="#" class="nav-link" @click.prevent="$router.push('/')">
-              <i class="fas fa-columns"></i>
+            <a
+              href="#"
+              class="nav-link"
+              @click.prevent="$router.push('/dashboard')"
+            >
+              <i class="fas fa-fan"></i>
               <p>
                 Dashboard
               </p>
             </a>
           </li>
+
           <li class="nav-item">
             <a href="#" class="nav-link" @click.prevent="$router.push('/')">
               <i class="fas fa-fan"></i>

@@ -13,6 +13,7 @@ class XenditController {
         should_send_email: true,
         reminder_time_unit: "hours",
         reminder_time: "1",
+        success_redirect_url: "http://localhost:8081",
       },
       {
         auth: {

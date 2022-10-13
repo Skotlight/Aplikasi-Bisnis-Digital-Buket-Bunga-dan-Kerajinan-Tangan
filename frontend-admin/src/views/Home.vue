@@ -30,6 +30,7 @@
           <div class="card-body">
             <div class="tab-content p-0">
               <zing-grid
+                v-if="$store.state.categoriesString !== ''"
                 caption="List"
                 editor-controls
                 pager
@@ -59,14 +60,14 @@
                   <zg-column index="name"></zg-column>
                   <zg-column index="price"></zg-column>
                   <zg-column index="stock"></zg-column>
-                  <zg-column index="category" type="column">
-                    <select>
-                      <option value="1">Tes</option>
-                      <option value="0">Tos</option>
-                    </select>
-                  </zg-column>
+                  <zg-column
+                    index="category"
+                    type="select"
+                    :type-select-options="$store.state.categoriesString"
+                  ></zg-column>
                 </zg-data>
               </zing-grid>
+              <p v-else>Loading</p>
             </div>
           </div>
           <!-- /.card-body -->
@@ -93,6 +94,7 @@ export default {
   },
   created() {
     this.$store.dispatch("fetchProducts");
+    this.$store.dispatch("fetchCategories");
   },
   data() {
     return {
@@ -100,7 +102,13 @@ export default {
         search: "",
         category: "Flower Bouquet",
       },
+      categories: [],
     };
+  },
+  computed: {
+    categoryNames() {
+      return this.$store.getters.categoryNames;
+    },
   },
   methods: {
     searchProduct() {

@@ -26,17 +26,10 @@
           </CHeaderNavLink>
         </template>
         <CDropdownHeader tag="div" class="text-center" color="light">
-          <strong>Account</strong>
-          <strong>Settings</strong>
+          <strong>Hello!</strong>
+          <strong>Admin</strong>
         </CDropdownHeader>
 
-        <CDropdownItem>
-          <CIcon name="cil-bell" /> Notification
-          <CBadge color="info" class="mfs-auto">{{ itemsCount }}</CBadge>
-        </CDropdownItem>
-        <CDropdownItem><CIcon name="cil-user" />Profile </CDropdownItem>
-        <CDropdownItem><CIcon name="cil-settings" />Settings </CDropdownItem>
-        <CDropdownDivider />
         <CDropdownItem
           ><CIcon name="cil-lock-locked" /><a @click.prevent="submitLogout">
             Logout</a

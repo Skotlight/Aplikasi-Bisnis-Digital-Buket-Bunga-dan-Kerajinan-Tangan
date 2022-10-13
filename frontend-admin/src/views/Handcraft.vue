@@ -82,6 +82,7 @@ import FooterVue from "../components/Footer.vue";
 import NavbarVue from "../components/Navbar.vue";
 import SidebarVue from "../components/Sidebar.vue";
 
+
 export default {
   title: "products",
   name: "Handcraft",

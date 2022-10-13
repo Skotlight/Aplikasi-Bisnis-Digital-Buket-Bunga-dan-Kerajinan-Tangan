@@ -7,7 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     products: [],
-    handcrafts: [],
+    categories: [],
     carts: [],
     isAuthenticated: false,
     totPrice: 0,
@@ -18,8 +18,8 @@ export default new Vuex.Store({
     SET_PRODUCT(state, payload) {
       state.products = payload;
     },
-    SET_HANDCRAFTS(state, payload) {
-      state.handcrafts = payload;
+    SET_CATEGORY(state, payload) {
+      state.categories = payload;
     },
     SET_AUTH(state, boolean) {
       state.isAuthenticated = boolean;
@@ -38,13 +38,13 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    fetchHandcrafts({ commit }) {
+    fetchCategories({ commit }) {
       axios({
-        url: `http://localhost:3000/handcraft`,
+        url: "http://localhost:3000/category",
         method: "GET",
       })
         .then(({ data }) => {
-          commit("SET_HANDCRAFTS", data);
+          commit("SET_CATEGORY", data);
         })
         .catch((err) => {
           console.log(err);
@@ -227,4 +227,15 @@ export default new Vuex.Store({
     },
   },
   modules: {},
+  getters: {
+    filteredProducts: (state) => (payload) => {
+      if (payload) {
+        return state.products.filter(
+          (products) => products.category === payload
+        );
+      } else {
+        return state.products;
+      }
+    },
+  },
 });

@@ -16,22 +16,18 @@
               <div class="nav-main">
                 <!-- Tab Nav -->
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
-                  <li class="nav-item">
-                    <a
-                      class="nav-link  active"
-                      data-toggle="tab"
-                      href="#bouquet"
-                      role="tab"
-                      >Bouquet</a
-                    >
-                  </li>
-                  <li class="nav-item">
+                  <li
+                    class="nav-item"
+                    v-for="category in $store.state.categories"
+                    :key="category.id"
+                  >
                     <a
                       class="nav-link"
                       data-toggle="tab"
-                      href="#handcraft"
+                      :href="'#' + category.id"
+                      @click.prevent="changeCategory(category.category)"
                       role="tab"
-                      >Handcraft</a
+                      >{{ category.category }}</a
                     >
                   </li>
                 </ul>
@@ -40,31 +36,19 @@
               <div class="tab-content" id="myTabContent">
                 <!-- Start Single Tab -->
                 <div
-                  class="tab-pane fade show active"
-                  id="bouquet"
+                  class="tab-pane fade show"
+                  :id="category.id"
                   role="tabpanel"
+                  v-for="category in $store.state.categories"
+                  :key="category.id"
+                  :class="[
+                    category.category == productByCategory ? 'active' : '',
+                  ]"
                 >
                   <div class="tab-single">
-                    <div class="row">
+                    <div class="row mb-5">
                       <ProductCardVue
-                        v-for="product in $store.state.products"
-                        :key="product.id"
-                        :product="product"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <!--/ End Single Tab -->
-                <!-- Start Single Tab -->
-                <div
-                  class="tab-pane fade show active"
-                  id="handcraft"
-                  role="tabpanel"
-                >
-                  <div class="tab-single">
-                    <div class="row">
-                      <ProductCardVue
-                        v-for="product in $store.state.handcrafts"
+                        v-for="product in products"
                         :key="product.id"
                         :product="product"
                       />
@@ -95,8 +79,9 @@ export default {
     ProductCardVue,
   },
   created() {
-    this.$store.dispatch("fetchProducts");
-    this.$store.dispatch("fetchHandcrafts");
+    this.fetchProducts();
+    this.fetchCategories();
+
     if (localStorage.access_token) {
       this.$store.dispatch("authenticate", true);
     }
@@ -107,7 +92,13 @@ export default {
         search: "",
         category: "Flower Bouquet",
       },
+      productByCategory: "Flower Bouquet",
     };
+  },
+  computed: {
+    products() {
+      return this.$store.getters.filteredProducts(this.productByCategory);
+    },
   },
   methods: {
     searchProduct() {
@@ -118,6 +109,16 @@ export default {
     submitLogout() {
       localStorage.removeItem("access_token");
       this.$store.dispatch("authenticate", false);
+    },
+
+    changeCategory(id) {
+      this.productByCategory = id;
+    },
+    fetchProducts() {
+      this.$store.dispatch("fetchProducts");
+    },
+    fetchCategories() {
+      this.$store.dispatch("fetchCategories");
     },
   },
 };
